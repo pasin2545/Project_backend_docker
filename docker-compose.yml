@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${BACKEND_PORT}", "--reload"]
+    # command: ["python", "test.py"]
+    # environment:
+    #   - MONGO_CONNECTION:${MONGO_CONNECTION}
+    env_file:
+      - .env
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    volumes:
+      - .:/code
+      - /home/project/data:/app 
+    restart: always
+  mongodb:
+    image: mongo
+    ports:
+      - "${MONGO_PORT}:${MONGO_PORT}"
+    volumes:
+      - /home/project/mongodb_data:/data/db   # adjust the path as needed
+    restart: always
