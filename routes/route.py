@@ -2134,7 +2134,7 @@ async def post_defectlo_lis_model(path: str):
     img_path = glob.glob(f"{path}/*.jpg")
     # print(img_path)
     # img_path = os.path.join(path.history_path) #image path for model
-    model_path = os.path.join("bestv40.pt")
+    model_path = os.path.join(os.getenv("MODEL_FILE"))
     model = YOLO(model_path)
     for image in img_path:
         img = cv2.imread(image)
