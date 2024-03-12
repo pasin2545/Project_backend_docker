@@ -2208,8 +2208,8 @@ async def log(current_user: Annotated[User, Depends(get_current_user)]):
 
 # -------------------------------------------------------Email-------------------------------------------------------
 async def send_email(email_receiver, subject, body):
-    email_sender = "roofsurfacedetection@gmail.com"
-    email_password = "zivu baqk gyun lprm"
+    email_sender = os.getenv("EMAIL_SENDER")
+    email_password = os.getenv("EMAIL_PASSWORD")
 
     em = EmailMessage()
     em["From"] = email_sender
