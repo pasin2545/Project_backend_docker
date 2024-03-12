@@ -1121,6 +1121,31 @@ async def del_his(id_histo: HistoryId):
 
 # -------------------------------------------------------Image-------------------------------------------------------
 
+@router.get("/get_img/{image_id}")
+async def get_image_file(
+    # current_user: Annotated[User, Depends(get_current_user)], 
+    image_id: str
+):
+    # if not current_user.is_verified:
+    #     collection_log.insert_one(
+    #         {
+    #             "actor": current_user.username,
+    #             "message": f"Trying to access as verified user",
+    #             "timestamp": getCurTime().strftime("%d-%m-%Y_%H-%M-%S"),
+    #         }
+    #     )
+    #     return {"message": "Not Verified"}
+
+    # Find the image in the database by its ID
+    image = collection_Image.find_one({"_id": ObjectId(image_id)})
+    if image is None:
+        return {"message": "Image not found"}
+
+    # Get the image path from the database
+    image_path = image["image_path"]
+
+    # Return the image file as a response
+    return FileResponse(image_path)
 
 # GET Request Method for image when need to show image which have defect
 @router.get("/get_image")
