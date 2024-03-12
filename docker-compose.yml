@@ -4,9 +4,6 @@ services:
   app:
     build: .
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "${BACKEND_PORT}", "--reload"]
-    # command: ["python", "test.py"]
-    # environment:
-    #   - MONGO_CONNECTION:${MONGO_CONNECTION}
     env_file:
       - .env
     ports:
